@@ -1,0 +1,11 @@
+services:
+  payroll-calculation:
+    build:
+      context: .
+      dockerfile: PaymentCalculation.CLI\Docker\Dockerfile
+    container_name: payroll-calculation
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+    environment:
+      - DOTNET_ENVIRONMENT=Production

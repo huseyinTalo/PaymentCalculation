@@ -13,11 +13,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PaymentCalculation\PaymentCalculation.Base.csproj" />
+    <Folder Include="Docker\" />
+    <Folder Include="PayrollData\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="PayrollData\" />
+    <ProjectReference Include="..\PaymentCalculation.Base\PaymentCalculation.Base.csproj" />
   </ItemGroup>
 
 </Project>
