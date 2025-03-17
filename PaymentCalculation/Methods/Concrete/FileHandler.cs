@@ -85,11 +85,9 @@ namespace PaymentCalculation.Base.Methods.Concrete
         {
             try
             {
-                var personnelContainer = new PersonnelContainer
-                {
-                    Officers = officers,
-                    Administrators = administrators
-                };
+                List<Personnel> personnelContainer = new List<Personnel>();
+                personnelContainer.AddRange(officers);
+                personnelContainer.AddRange(administrators);
 
                 DateTime now = DateTime.Now;
                 string monthName = now.ToString("MMMM");

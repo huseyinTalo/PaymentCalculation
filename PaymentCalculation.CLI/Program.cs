@@ -92,11 +92,11 @@ void ListAllPersonnel(string filePath)
 {
     var readFile = fileHandler.ReadJson(filePath);
     Console.ForegroundColor = ConsoleColor.Green;
-    Console.WriteLine("\n╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗");
+    Console.WriteLine("\n╔═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗");
     Console.WriteLine("║                                                    PERSONNEL LIST                                                         ║");
-    Console.WriteLine("╠════════════════════════╦═══════════════════════════╦═════════════════╦════════════════════╦═══════════╦══════════════════╣");
-    Console.WriteLine("║         Name           ║          Title            ║  Employment Date║    Birth Date      ║ Work Hours║   Hourly Rate    ║");
-    Console.WriteLine("╠════════════════════════╬═══════════════════════════╬═════════════════╬════════════════════╬═══════════╬══════════════════╣");
+    Console.WriteLine("╠════════════════════════╦═══════════════════════════╦═════════════════╦════════════════════╦═════════════╦═════════════════╣");
+    Console.WriteLine("║         Name           ║          Title            ║  Employment Date║    Birth Date      ║ Work Hours  ║   Hourly Rate   ║");
+    Console.WriteLine("╠════════════════════════╬═══════════════════════════╬═════════════════╬════════════════════╬═════════════╬═════════════════╣");
     foreach (var person in readFile.administrators)
     {
 
@@ -113,7 +113,7 @@ void ListAllPersonnel(string filePath)
 
 
     }
-    Console.WriteLine("╚════════════════════════╩═══════════════════════════╩═════════════════╩════════════════════╩═══════════╩══════════════════╝");
+    Console.WriteLine("╚════════════════════════╩═══════════════════════════╩═════════════════╩════════════════════╩═══════════╩═══════════════════╝");
     Console.ResetColor();
 
     Console.WriteLine("\nPress any key to return to the main menu...");
@@ -141,13 +141,13 @@ void ListAllPayrolls()
 
         if (jsonFiles.Length == 0)
         {
-            Console.WriteLine("PayrollData klasöründe JSON dosyası bulunamadı.");
+            Console.WriteLine("There are no payroll data as of now");
             Console.ReadLine();
             return;
         }
 
         List<string> fileNames = new List<string>();
-        Console.WriteLine("PayrollData klasöründeki JSON dosyaları:");
+        Console.WriteLine("Payroll Data:");
 
         for (int i = 0; i < jsonFiles.Length; i++)
         {
@@ -156,15 +156,19 @@ void ListAllPayrolls()
             Console.WriteLine($"{i + 1}. {fileName}");
         }
 
-        Console.WriteLine("\nLütfen bir dosya seçin (1-{0}):", jsonFiles.Length);
+        Console.WriteLine("\nPlease select a file (1-{0}):", jsonFiles.Length);
 
         int selection;
         while (true)
         {
-            if (int.TryParse(Console.ReadLine(), out selection) &&
+            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+
+            if (char.IsDigit(keyInfo.KeyChar) &&
+                int.TryParse(keyInfo.KeyChar.ToString(), out selection) &&
                 selection >= 1 &&
                 selection <= jsonFiles.Length)
             {
+                Console.WriteLine($"\nPressed key: {keyInfo.KeyChar}");
                 string selectedFile = jsonFiles[selection - 1];
                 Console.WriteLine($"\nSeçilen dosya: {fileNames[selection - 1]}");
                 string filePath = Path.Combine(payrollData, fileNames[selection - 1]);
@@ -174,16 +178,16 @@ void ListAllPayrolls()
             }
             else
             {
-                Console.WriteLine($"Lütfen 1 ile {jsonFiles.Length} arasında bir sayı girin:");
+                Console.WriteLine($"\nPlease enter a number between 1 and {jsonFiles.Length}:");
             }
         }
     }
     else
     {
-        Console.WriteLine("PayrollData klasörü bulunamadı.");
+        Console.WriteLine("PayrollData file does not exist.");
     }
 
-    Console.WriteLine("\nÇıkmak için herhangi bir tuşa basın...");
+    Console.WriteLine("\nPlease enter any key to exit...");
     Console.ReadKey();
 }
 
@@ -191,11 +195,11 @@ static void DisplayPersonnelWithPayment(ICollection<Officer> officers,
             ICollection<Administrator> administrators)
 {
     Console.ForegroundColor = ConsoleColor.Green;
-    Console.WriteLine("\n╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗");
-    Console.WriteLine("║                                                    PERSONNEL LIST                                                                 ║");
-    Console.WriteLine("╠════════════════════════╦═══════════════════════════╦═════════════════╦════════════════════╦═══════════╦══════════════════╦══════════════╣");
-    Console.WriteLine("║         Name           ║          Title            ║  Employment Date║    Birth Date      ║ Work Hours║   Hourly Rate    ║    Payment   ║");
-    Console.WriteLine("╠════════════════════════╬═══════════════════════════╬═════════════════╬════════════════════╬═══════════╬══════════════════╬══════════════╣");
+    Console.WriteLine("\n╔═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗");
+    Console.WriteLine("║                                                    PERSONNEL LIST                                                                         ║");
+    Console.WriteLine("╠════════════════════════╦═══════════════════════════╦═════════════════╦════════════════════╦═════════════╦═════════════════╦═══════════════╣");
+    Console.WriteLine("║         Name           ║          Title            ║  Employment Date║    Birth Date      ║ Work Hours  ║   Hourly Rate   ║    Payment    ║");
+    Console.WriteLine("╠════════════════════════╬═══════════════════════════╬═════════════════╬════════════════════╬═════════════╬═════════════════╬═══════════════╣");
 
     // Administrators için ödeme bilgisi gösterme
     foreach (var person in administrators)
@@ -211,7 +215,7 @@ static void DisplayPersonnelWithPayment(ICollection<Officer> officers,
         Console.WriteLine($"║ {person.FullName,-22} ║ {person.Title,-25} ║ {person.EmploymentDate.ToString("yyyy-MM-dd"),-15} ║ {person.Birthday.ToString("yyyy-MM-dd"),-18} ║ {person.WorkHours,-11} ║ ${person.PerHourRate,-14:F2} ║ ${person.Payment,-12:F2} ║");
     }
 
-    Console.WriteLine("╚════════════════════════╩═══════════════════════════╩═════════════════╩════════════════════╩═══════════╩══════════════════╩══════════════╝");
+    Console.WriteLine("╚════════════════════════╩═══════════════════════════╩═════════════════╩════════════════════╩═════════════╩═════════════════╩═══════════════╝");
     Console.ResetColor();
     Console.WriteLine("\nAna menüye dönmek için herhangi bir tuşa basın...");
     Console.ReadKey();

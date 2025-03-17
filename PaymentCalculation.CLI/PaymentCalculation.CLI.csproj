@@ -16,4 +16,8 @@
     <ProjectReference Include="..\PaymentCalculation\PaymentCalculation.Base.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="PayrollData\" />
+  </ItemGroup>
+
 </Project>
