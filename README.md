@@ -12,7 +12,7 @@ Bu proje, Docker kullanarak kolayca kurulup çalıştırılabilir. Aşağıdaki 
 1. **Repoyu Klonlayın:**
    - GitHub reposunu yerel makinenize klonlayın:
      ```bash
-     git clone https://github.com/huseyinTalo/payroll-calculation.git
+     git clone https://github.com/huseyinTalo/PaymentCalculation.git
      cd payroll-calculation
      ```
 
